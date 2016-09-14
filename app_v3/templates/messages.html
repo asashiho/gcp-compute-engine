@@ -15,7 +15,7 @@
     </p>
     <div>{{ message.message | add_br }}</div>
     {% if message.filename %}
-      <img src="https://storage.cloud.google.com/gcp-book01/{{ message.filename }}" style="max-width: 30%">
+      <img src="{{ storage_path }}/{{ message.filename }}" style="max-width: 30%">
     {% endif %}
   <hr>
   {% endfor %}

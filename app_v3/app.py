@@ -26,7 +26,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'mysql+pymysql://%s:%s@%s/message_db' % (dbuser, dbpass, dbaddress)
 db = SQLAlchemy(app)
-bucket = storage.Client().get_bucket('%s-imagestore' % project_id)
+bucket_name = '%s-imagestore' % project_id
+bucket = storage.Client().get_bucket(bucket_name)
+storage_path = 'https://storage.cloud.google.com/%s' % bucket_name
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -72,7 +74,8 @@ def messages():
     last_messages = Message.query.order_by(desc(Message.id)).limit(5)
     last_messages = [message for message in last_messages]
     last_messages.reverse()
-    return render_template('messages.html', form=form, messages=last_messages)
+    return render_template('messages.html', storage_path=storage_path,
+                           form=form, messages=last_messages)
 
 @app.route('/post', methods=['POST'])
 def post():
