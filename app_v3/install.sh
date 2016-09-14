@@ -9,4 +9,3 @@ popd
 
 chmod 700 /opt/dengonban/v3/app.py
 systemctl daemon-reload
-systemctl enable dengonban.service

@@ -15,11 +15,18 @@ from werkzeug.datastructures import CombinedMultiDict
 from gcloud import storage
 import uuid, tempfile
 
+#### Edit Here
+project_id = 'gcpbook-project'
+dbuser = 'appuser'
+dbpass = 'pas4appuser'
+dbaddress = '104.198.53.56'
+####
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql+pymysql://appuser:pas4appuser@104.198.53.56/message_db'
+    'mysql+pymysql://%s:%s@%s/message_db' % (dbuser, dbpass, dbaddress)
 db = SQLAlchemy(app)
-bucket = storage.Client().get_bucket('gcp-book01')
+bucket = storage.Client().get_bucket('%s-imagestore' % project_id)
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
