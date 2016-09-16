@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>伝言板</title>
+  </head>
+
+  <body>
+
+{% from "_formhelpers.html" import render_field %}
+
+<h1>これまでのメッセージ</h1>
+  <hr>
+  {% for message in messages %}
+    <div>{{ message.timestamp }} に {{ message.name }} さんが投稿しました。</div>
+    </p>
+    <div>{{ message.message | add_br }}</div>
+  <hr>
+  {% endfor %}
+
+<h1>新しいメッセージをどうぞ！</h1>
+<form method=post action={{ url_for('post') }} enctype="multipart/form-data">
+  {{ render_field(form.input_name) }}
+  {{ render_field(form.input_message, rows=10, cols=50) }}
+  <input type=submit value='投稿' name='submit' style="font-size: 2.0em">
+</form>
+
+  </body>
+</html>
