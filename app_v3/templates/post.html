@@ -1,16 +1,32 @@
-<!doctype html>
-<html>
-  <head>
-    <title>ありがとうございます</title>
-  </head>
-  <body>
-</p>
-<div>{{ timestamp }}</div>
-<div>{{ name }} さんからのメッセージを受け取りました。</div>
-</p>
-<form action={{ url_for('messages') }}>
-  <input type=submit value='伝言板にもどる' style="font-size: 2.0em">
-</form>
+<!DOCTYPE html>
+<html lang="ja">
 
-  </body>
+<head>
+    <meta charset="utf-8">
+    <title>伝言板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+</head>
+
+<body>
+    {% from "_formhelpers.html" import render_field %}
+    <!-- Navbar-->
+    <div class="navbar navbar-default navbar-fixed-top"></div>
+    <div class="container" style="padding:80px 0 0 0">
+        <!-- Main -->
+        <div class="jumbotron">
+            <blockquote>
+                <p>{{ name }} さんからのメッセージを受け取りました</p>
+                <small>{{ timestamp }}</small>
+            </blockquote>
+            <form action={{ url_for( 'messages') }}>
+                <input class="btn btn-primary btn-lg" type=submit value='伝言板にもどる'>
+            </form>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+</body>
+
 </html>

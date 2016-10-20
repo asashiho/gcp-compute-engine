@@ -1,28 +1,71 @@
-<!doctype html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
     <title>伝言板</title>
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+</head>
 
-  <body>
+<body>
+    {% from "_formhelpers.html" import render_field %}
+    <!-- Navbar-->
+    <div class="navbar navbar-default navbar-fixed-top"></div>
+    <div class="container" style="padding:80px 0 0 0">
+        <!-- Main -->
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-6">
+                <h3>新しいメッセージをどうぞ！</h3></div>
+            <div class="col-lg-7 col-md-7 col-sm-6">
+                <h3>これまでのメッセージ</h3></div>
+        </div>
+        <!-- Form -->
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-6">
+                <div class="well bs-component">
+                    <form class="form-horizontal" method=post action={{ url_for( 'post') }} enctype="multipart/form-data">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    {{ render_field(form.input_name) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    {{ render_field(form.input_message) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <input type=reset value='クリア' class="btn btn-default">
+                                    <input type=submit value='投稿' class="btn btn-primary">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <!-- Message -->
+            <div class="col-lg-7 col-md-7 col-sm-6">
+                <div class="bs-component">
+                    {% for message in messages %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ message.timestamp }} に {{ message.name }} さんが投稿しました</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ message.message | add_br }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+</body>
 
-{% from "_formhelpers.html" import render_field %}
-
-<h1>これまでのメッセージ</h1>
-  <hr>
-  {% for message in messages %}
-    <div>{{ message.timestamp }} に {{ message.name }} さんが投稿しました。</div>
-    </p>
-    <div>{{ message.message | add_br }}</div>
-  <hr>
-  {% endfor %}
-
-<h1>新しいメッセージをどうぞ！</h1>
-<form method=post action={{ url_for('post') }} enctype="multipart/form-data">
-  {{ render_field(form.input_name) }}
-  {{ render_field(form.input_message, rows=10, cols=50) }}
-  <input type=submit value='投稿' name='submit' style="font-size: 2.0em">
-</form>
-
-  </body>
 </html>

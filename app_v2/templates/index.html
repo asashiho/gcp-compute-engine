@@ -1,9 +1,27 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Welcome</title>
-  </head>
-  <body>
-<a href={{ url_for('messages') }}>伝言板の利用を開始する。</a>
-  </body>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>伝言板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" media="screen">
+</head>
+
+<body>
+    {% from "_formhelpers.html" import render_field %}
+    <!-- Navbar-->
+    <div class="navbar navbar-default navbar-fixed-top"></div>
+    <div class="container" style="padding:80px 0 0 0">
+        <!-- Main -->
+        <div class="jumbotron">
+            <p>掲示板サンプルアプリケーションを起動します</p>
+            <p><a class="btn btn-primary btn-lg" href={{ url_for( 'messages') }}>Start</a></p>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+</body>
+
 </html>
