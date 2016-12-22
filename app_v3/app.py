@@ -16,15 +16,15 @@ from gcloud import storage
 import uuid, tempfile
 
 #### Edit Here
-project_id = 'gcpbook-project'
+project_id = '<Your_Project_ID>'
 dbuser = 'appuser'
 dbpass = 'pas4appuser'
-dbaddress = '104.198.53.56'
+dbinstance = '<Your_Instance_Connection_Name>'
 ####
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql+pymysql://%s:%s@%s/message_db' % (dbuser, dbpass, dbaddress)
+    'mysql+pymysql://%s:%s@/message_db?unix_socket=/cloudsql/%s' % (dbuser, dbpass, dbinstance)
 db = SQLAlchemy(app)
 bucket_name = '%s-imagestore' % project_id
 bucket = storage.Client().get_bucket(bucket_name)
