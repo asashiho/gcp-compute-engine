@@ -12,12 +12,13 @@ from sqlalchemy import desc
 #### Edit Here
 dbuser = 'appuser'
 dbpass = 'pas4appuser'
-dbinstance = '<Your_Instance_Connection_Name>'
+dbInstanceIpAddress = '<Your_Instance_IP_Address>'
+dbinstanceConnectionName = '<Your_Instance_Connection_Name>'
 ####
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql+pymysql://%s:%s@/message_db?unix_socket=/cloudsql/%s' % (dbuser, dbpass, dbinstance)
+    'mysql+pymysql://%s:%s@%s/message_db?unix_socket=/cloudsql/%s' % (dbuser, dbpass, dbInstanceIpAddress, dbinstanceConnectionName)
 db = SQLAlchemy(app)
 
 class Message(db.Model):
