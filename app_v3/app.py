@@ -13,7 +13,7 @@ from flask_wtf.file import FileField
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import CombinedMultiDict
 from gcloud import storage
-import uuid, tempfile
+import uuid, tempfile, time
 
 #### Edit Here
 project_id = '<Your_Project_ID>'
@@ -22,6 +22,7 @@ dbpass = 'pas4appuser'
 dbinstance = '<Your_Instance_Connection_Name>'
 ####
 
+time.sleep(3) # Wait for cloudsqlproxy to start
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'mysql+pymysql://%s:%s@/message_db?unix_socket=/cloudsql/%s' % (dbuser, dbpass, dbinstance)
